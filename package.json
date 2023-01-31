@@ -1,6 +1,7 @@
 {
   "name": "catsinbox",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A tiny project to learn RxJs",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
