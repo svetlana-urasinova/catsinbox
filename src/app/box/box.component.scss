@@ -3,5 +3,6 @@
   background-size: contain;
   height: var(--container-size);
   margin: 0 auto;
+  position: relative;
   width: calc(var(--container-size) * 1.2);
 }
