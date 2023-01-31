@@ -35,8 +35,8 @@ $white: #ffffff;
   --box-shadow: 0 2px 5px var(--shadow);
   --transition: all 0.2s ease-in-out;
 
-  --cat-size: 80px;
-  --container-size: 350px;
+  --cat-size: 60px;
+  --container-size: 300px;
 
   @media only screen and (max-width: 600px) {
     --cat-size: 40px;
