@@ -16,7 +16,7 @@ export class Cat {
     this.position = position ?? CatPosition.Bed;
   }
 
-  public updatePosition(): void {
+  public move(): void {
     this.position =
       this.position === CatPosition.Bed ? CatPosition.Box : CatPosition.Bed;
   }
@@ -38,6 +38,11 @@ export interface CatCreatePayload {
   name?: string;
   breed?: CatBreed;
   position?: CatPosition;
+}
+
+export interface CatMovePayload {
+  cat: Cat;
+  force?: boolean;
 }
 
 export interface CatDeletePayload {

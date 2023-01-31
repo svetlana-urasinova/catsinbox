@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
-import { MAX_CATS_IN_BOX_NUMBER, MAX_CATS_NUMBER } from '../../constants';
+import { MAX_CATS_IN_BOX, MAX_CATS } from '../../constants';
 import { CatsService } from '../../services';
 import { Cat, CatPosition } from '../../types';
 import {
@@ -16,12 +16,13 @@ import {
   CatsFetchFailed,
   CatsLoaded,
   CATS_FETCH,
-  CatUpdate,
-  CatUpdated,
-  CatUpdateFailed,
+  CatMove,
+  CatMoved,
+  CatMoveFailed,
   CAT_CREATE,
   CAT_DELETE,
-  CAT_UPDATE,
+  CAT_MOVE,
+  CatIdle,
 } from '../actions';
 import { getCats, getCatsByPosition } from '../selectors';
 import { AppState } from '../state';
@@ -59,10 +60,10 @@ export class CatsEffects {
           return of(new CatCreateFailed('Cat with this name already exists.'));
         }
 
-        if (cats.length === MAX_CATS_NUMBER) {
+        if (cats.length === MAX_CATS) {
           return of(
             new CatCreateFailed(
-              'You are not allowed have so many cats! Please give one away before adopting a new one.'
+              'You are not allowed to have so many cats! Please give one away before adopting a new one.'
             )
           );
         }
@@ -79,21 +80,24 @@ export class CatsEffects {
     )
   );
 
-  public updateCat$ = createEffect(() =>
+  public moveCat$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(CAT_UPDATE),
+      ofType(CAT_MOVE),
       withLatestFrom(this.store.select(getCatsByPosition(CatPosition.Box))),
-      switchMap(([action, catsInBox]: [CatUpdate, Cat[]]) => {
+      switchMap(([action, catsInBox]: [CatMove, Cat[]]) => {
+        const { cat, force } = action.payload;
         if (
-          action.cat.position !== CatPosition.Box &&
-          catsInBox.length === MAX_CATS_IN_BOX_NUMBER
+          cat.position !== CatPosition.Box &&
+          catsInBox.length === MAX_CATS_IN_BOX
         ) {
-          return of(new CatUpdateFailed('The box is full!'));
+          return force
+            ? of(new CatIdle())
+            : of(new CatMoveFailed('The box is full!'));
         }
 
-        return this.catsService.updateCat(action.cat).pipe(
-          map((response: Cat) => new CatUpdated(response)),
-          catchError((error: any) => of(new CatUpdateFailed(error.message)))
+        return this.catsService.updateCat(action.payload).pipe(
+          map((response: Cat) => new CatMoved(response)),
+          catchError((error: any) => of(new CatMoveFailed(error.message)))
         );
       })
     )

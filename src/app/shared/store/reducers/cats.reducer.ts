@@ -12,9 +12,10 @@ import {
   CAT_DELETED,
   CAT_DELETE_FAILED,
   CAT_SELECT,
-  CAT_UPDATE,
-  CAT_UPDATED,
-  CAT_UPDATE_FAILED,
+  CAT_MOVE,
+  CAT_MOVED,
+  CAT_MOVE_FAILED,
+  CAT_IDLE,
 } from '../actions';
 import { CatsState } from '../state';
 
@@ -33,7 +34,7 @@ export function catsReducer(
       return { ...state, cats: action.cats };
     case CAT_CREATED:
       return { ...state, cats: [...state.cats, action.cat] };
-    case CAT_UPDATED:
+    case CAT_MOVED:
       return {
         ...state,
         cats: [
@@ -50,15 +51,16 @@ export function catsReducer(
       return { ...state, selected_id: action.payload };
     case CATS_FETCH_FAILED:
     case CAT_CREATE_FAILED:
-    case CAT_UPDATE_FAILED:
+    case CAT_MOVE_FAILED:
     case CAT_DELETE_FAILED:
       return { ...state, error: action.error };
     case CATS_CLEAR_ERROR:
       return { ...state, error: null };
     case CATS_FETCH:
     case CAT_CREATE:
-    case CAT_UPDATE:
+    case CAT_MOVE:
     case CAT_DELETE:
+    case CAT_IDLE:
     default:
       return { ...state };
   }

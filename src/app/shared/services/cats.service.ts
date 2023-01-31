@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { Cat, CatBreed, CatCreatePayload, CatDeletePayload } from '../types';
+import {
+  Cat,
+  CatBreed,
+  CatCreatePayload,
+  CatDeletePayload,
+  CatMovePayload,
+} from '../types';
 
 @Injectable({
   providedIn: 'root',
@@ -30,17 +36,21 @@ export class CatsService {
     return of(cat);
   }
 
-  public updateCat(payload: Cat): Observable<Cat> {
-    const showError = this.getRandomNumber(5) === 1;
+  public updateCat(payload: CatMovePayload): Observable<Cat> {
+    const { cat, force } = payload;
 
-    if (showError) {
-      return throwError(
-        () => new Error("Cat doesn't want to move. Please try again.")
-      );
+    if (!force) {
+      const showError = this.getRandomNumber(5) === 1;
+
+      if (showError) {
+        return throwError(
+          () => new Error("Cat doesn't want to move. Please try again.")
+        );
+      }
     }
 
-    const updatedCat = new Cat(payload);
-    updatedCat.updatePosition();
+    const updatedCat = new Cat(cat);
+    updatedCat.move();
 
     return of(updatedCat);
   }

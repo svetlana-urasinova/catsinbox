@@ -10,7 +10,7 @@ import {
   CatDelete,
   CatsClearError,
   CatSelect,
-  CatUpdate,
+  CatMove,
   getSelectedCat,
 } from '../shared/store';
 import { Cat, CatCreatePayload, CatPosition } from '../shared/types';
@@ -79,7 +79,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     this.clearError();
 
-    this.store.dispatch(new CatUpdate(this.selected));
+    this.store.dispatch(new CatMove({ cat: this.selected }));
   }
 
   public handleDelete(): void {
