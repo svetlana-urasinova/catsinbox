@@ -1,7 +1,7 @@
 <div class="modal-content">
-  <p>Name your cat:</p>
+  <p class="create-cat-label">Name your cat:</p>
   <div class="form" [formGroup]="form">
-    <cat [cat]="cat"></cat>
+    <cat class="create-cat-img" [cat]="cat"></cat>
     <styled-input formControlName="name" placeholder="Fluffy"></styled-input>
   </div>
 </div>

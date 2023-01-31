@@ -35,8 +35,13 @@ $white: #ffffff;
   --box-shadow: 0 2px 5px var(--shadow);
   --transition: all 0.2s ease-in-out;
 
-  --cat-size: 60px;
+  --cat-size: 80px;
   --container-size: 350px;
+
+  @media only screen and (max-width: 600px) {
+    --cat-size: 40px;
+    --container-size: 200px;
+  }
 }
 
 body {
@@ -44,4 +49,8 @@ body {
   font: normal 18px Georgia, serif;
   margin: 0;
   position: relative;
+
+  @media only screen and (max-width: 600px) {
+    font-size: 15px;
+  }
 }

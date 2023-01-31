@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BedComponent } from './bed/bed.component';
 import { BoxComponent } from './box/box.component';
+import { ErrorComponent } from './error/error.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -16,6 +17,7 @@ import { AppState, CatsFetch } from './shared/store';
     BoxComponent,
     ProfileComponent,
     MenuComponent,
+    ErrorComponent,
     FooterComponent,
     ModalComponent,
   ],

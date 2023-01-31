@@ -1,11 +1,15 @@
 .profile {
   align-items: center;
   background-color: var(--white);
-  border: 2px solid var(--accent);
+  border: 1px solid var(--accent);
   border-radius: 10px;
   display: grid;
   gap: 20px;
   grid-template-columns: var(--cat-size) auto;
   padding: 20px;
-  width: var(--container-size);
+  width: 100%;
+
+  @media only screen and (max-width: 600px) {
+    padding: 10px 20px
+  }
 }

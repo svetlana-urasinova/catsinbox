@@ -5,6 +5,26 @@
   grid-template-columns: var(--cat-size) auto;
   margin-bottom: 40px;
   width: 400px;
+
+  @media only screen and (max-width: 600px) {
+    grid-template-columns: auto;
+    grid-template-rows: var(--cat-size) auto;
+    width: 100%;
+  }
+}
+
+.create-cat {
+  &-label {
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  &-img {
+    @media only screen and (max-width: 600px) {
+      margin: 0 auto;
+    }
+  }
 }
 
 .modal-controls {

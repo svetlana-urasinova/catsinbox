@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, take, takeUntil } from 'rxjs';
 import { ButtonColor, ButtonComponent, ButtonType } from '../shared/components';
-import { ERROR_CLEAR_TIMEOUT } from '../shared/constants';
 import { ModalService } from '../shared/services';
 import {
   AppState,
@@ -11,20 +10,18 @@ import {
   CatDelete,
   CatsClearError,
   CatSelect,
-  CatsState,
   CatUpdate,
-  getCatsState,
   getSelectedCat,
 } from '../shared/store';
 import { Cat, CatCreatePayload, CatPosition } from '../shared/types';
-import { MenuErrorComponent } from './menu-error/menu-error.component';
+import { ErrorComponent } from '../error/error.component';
 import { ModalCreateCatComponent } from './modal-create-cat/modal-create-cat.component';
 import { ModalDeleteCatComponent } from './modal-delete-cat/modal-delete-cat.component';
 
 @Component({
   selector: 'app-menu',
   standalone: true,
-  imports: [CommonModule, ButtonComponent, MenuErrorComponent],
+  imports: [CommonModule, ButtonComponent, ErrorComponent],
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
 })
@@ -52,21 +49,6 @@ export class MenuComponent implements OnInit, OnDestroy {
       .select(getSelectedCat)
       .pipe(takeUntil(this.component$))
       .subscribe((selected: Cat | null) => (this.selected = selected));
-
-    this.store
-      .select(getCatsState)
-      .pipe(takeUntil(this.component$))
-      .subscribe((state: CatsState) => {
-        const { error } = state;
-
-        this.error = error;
-
-        if (error) {
-          setTimeout(() => {
-            this.store.dispatch(new CatsClearError());
-          }, ERROR_CLEAR_TIMEOUT);
-        }
-      });
   }
 
   public ngOnDestroy(): void {

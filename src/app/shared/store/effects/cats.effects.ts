@@ -62,7 +62,7 @@ export class CatsEffects {
         if (cats.length === MAX_CATS_NUMBER) {
           return of(
             new CatCreateFailed(
-              'You cannot have so many cats! Please give one away before adopting a new one.'
+              'You are not allowed have so many cats! Please give one away before adopting a new one.'
             )
           );
         }

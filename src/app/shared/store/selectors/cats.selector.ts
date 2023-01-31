@@ -19,3 +19,8 @@ export const getCatsByPosition = (position: CatPosition) =>
   createSelector(getCatsState, (state: CatsState): Cat[] =>
     state.cats.filter((cat: Cat) => cat.position === position)
   );
+
+export const getCatsError = createSelector(
+  getCatsState,
+  (state: CatsState): string | null => state.error
+);
