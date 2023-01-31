@@ -1,0 +1,6 @@
+<div class="styled-modal-wrapper" *ngIf="isOpen$ | async">
+  <div class="styled-modal">
+    <ng-container #modalBody></ng-container>
+  </div>
+</div>
+<div class="modal-blocker" *ngIf="isOpen$ | async"></div>

@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+$primary: #390099;
+$secondary: #9e0059;
+$accent: #2e86ab;
+$danger: #ef5350;
+$grey: #333333;
+$dark: #001040;
+$black: #000000;
+$white: #ffffff;
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #{$black};
+  --white: #{$white};
+
+  --primary: #{$primary};
+  --primary-light: #{mix($white, $primary, 10%)};
+  --secondary: #{$secondary};
+  --secondary-light: #{mix($white, $secondary, 10%)};
+  --accent: #{$accent};
+  --accent-light: #{mix($white, $accent, 10%)};
+  --danger: #{$danger};
+  --danger-light: #{mix($white, $danger, 10%)};
+  --grey: #{$grey};
+  --grey-60: #{mix($white, $grey, 60%)};
+  --grey-70: #{mix($white, $grey, 70%)};
+  --grey-80: #{mix($white, $grey, 80%)};
+  --disabled: var(--grey-80);
+  --text: #{$dark};
+  --text-light: #{mix($white, $dark, 20%)};
+
+  --shadow: rgba(0, 0, 0, 0.3);
+  --box-shadow: 0 2px 5px var(--shadow);
+  --transition: all 0.2s ease-in-out;
+
+  --cat-size: 60px;
+  --container-size: 350px;
+}
+
+body {
+  color: var(--text);
+  font: normal 18px Georgia, serif;
+  margin: 0;
+  position: relative;
+}

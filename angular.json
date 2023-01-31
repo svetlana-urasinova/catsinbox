@@ -107,5 +107,8 @@
       }
     }
   },
-  "defaultProject": "catsinbox"
+  "defaultProject": "catsinbox",
+  "cli": {
+    "analytics": false
+  }
 }

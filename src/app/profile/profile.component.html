@@ -1,0 +1,7 @@
+<div class="profile" *ngIf="selected">
+  <cat [cat]="selected"></cat>
+  <div class="profile-content">
+    <p>Name: {{ selected.name }}</p>
+    <p>Breed: {{ breedName }}</p>
+  </div>
+</div>

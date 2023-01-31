@@ -1,0 +1,94 @@
+.styled-button {
+  --text-color: var(--white);
+  background-color: var(--primary);
+  border: none;
+  border-radius: 6px;
+  box-shadow: var(--box-shadow);
+  color: var(--text-color);
+  cursor: pointer;
+  display: inline-block;
+  font: 400 17px "IBM Plex Sans", sans-serif;
+  height: 44px;
+  line-height: 1.5;
+  outline: none;
+  padding: 6px 24px;
+  position: relative;
+  text-align: center;
+  transition: ease-in-out 0.2s;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  @media screen and (max-width: 800px) {
+    font-size: 16px;
+    height: 42px;
+    padding: 8px 22px;
+  }
+
+  &:hover {
+    background-color: var(--primary-light);
+  }
+
+  &:active {
+    opacity: 0.9;
+  }
+
+  &:disabled {
+    background-color: var(--disabled);
+    color: var(--white);
+    cursor: default;
+  }
+
+  &.primary:not(:disabled) {
+    background-color: var(--primary);
+
+    &:hover,
+    &:focus {
+      background-color: var(--primary-light);
+    }
+  }
+
+  &.secondary:not(:disabled) {
+    background-color: var(--secondary);
+
+    &:hover,
+    &:focus {
+      background-color: var(--secondary-light);
+    }
+  }
+
+  &.accent:not(:disabled) {
+    background-color: var(--accent);
+
+    &:hover,
+    &:focus {
+      background-color: var(--accent-light);
+    }
+  }
+
+  &.danger:not(:disabled) {
+    background-color: var(--danger);
+
+    &:hover,
+    &:focus {
+      background-color: var(--danger-light);
+    }
+  }
+
+  &.grey:not(:disabled) {
+    background-color: var(--grey-60);
+
+    &:hover,
+    &:focus {
+      background-color: var(--grey-70);
+    }
+  }
+
+  &.icon {
+    border-radius: 4px;
+    height: fit-content;
+    padding: 4px 8px;
+  }
+}

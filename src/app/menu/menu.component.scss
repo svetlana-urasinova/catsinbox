@@ -1,0 +1,20 @@
+.menu {
+  &-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  &-button {
+    &-icon {
+      display: block;
+      height: 28px;
+      transition: var(--transition);
+      width: 28px;
+
+      &.back {
+        transform: scale(-1, 1);
+      }
+    }
+  }
+}

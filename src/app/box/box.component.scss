@@ -1,0 +1,6 @@
+.box {
+  background: var(--white) url("/assets/img/box.png") no-repeat;
+  background-size: contain;
+  height: var(--container-size);
+  width: calc(var(--container-size) * 1.2);
+}

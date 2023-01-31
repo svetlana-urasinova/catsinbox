@@ -1,0 +1,13 @@
+.app {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: auto auto;
+  grid-template-rows: var(--container-size) auto 70px;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 40px 0;
+}
+
+.footer {
+  grid-column: 1/3;
+}

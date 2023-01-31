@@ -1,0 +1,9 @@
+<button
+  class="styled-button"
+  [class.icon]="type === ButtonType.Icon"
+  [ngClass]="color"
+  [disabled]="disabled || null"
+  (click)="handleClick($event)"
+>
+  <ng-content></ng-content>
+</button>

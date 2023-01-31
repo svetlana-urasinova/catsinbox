@@ -1,0 +1,21 @@
+.cat {
+  background-color: white;
+  border: 2px solid var(--grey);
+  box-shadow: var(--box-shadow);
+  cursor: pointer;
+  display: block;
+  height: var(--cat-size);
+  outline: var(--white) solid 3px;
+  padding: 2px;
+  width: var(--cat-size);
+
+  &.selected {
+    outline-color: var(--accent);
+  }
+
+  &-img {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+  }
+}

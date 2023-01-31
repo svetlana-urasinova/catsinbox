@@ -1,0 +1,15 @@
+<div class="styled-form-group" [formGroup]="form">
+  <label class="styled-form-label" *ngIf="label">
+    {{ label }}
+  </label>
+  <input
+    class="styled-form-input"
+    [type]="type"
+    [placeholder]="placeholder"
+    formControlName="value"
+    [readOnly]="readonly"
+    [class.error]="error && showError"
+    (focus)="handleFocus()"
+    (blur)="handleBlur()"
+  />
+</div>

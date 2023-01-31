@@ -1,0 +1,21 @@
+.form {
+  align-items: center;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: var(--cat-size) auto;
+  margin-bottom: 40px;
+  width: 400px;
+}
+
+.modal-controls {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.icon {
+  display: block;
+  height: 24px;
+  width: 24px;
+}

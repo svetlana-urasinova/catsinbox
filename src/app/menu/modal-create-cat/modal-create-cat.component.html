@@ -1,0 +1,22 @@
+<div class="modal-content">
+  <p>Name your cat:</p>
+  <div class="form" [formGroup]="form">
+    <cat [cat]="cat"></cat>
+    <styled-input formControlName="name" placeholder="Fluffy"></styled-input>
+  </div>
+</div>
+<div class="modal-controls">
+  <styled-button [color]="ButtonColor.Danger" (onClick)="cancel()">
+    Cancel
+  </styled-button>
+  <styled-button
+    [color]="ButtonColor.Primary"
+    [disabled]="!this.form.valid"
+    (onClick)="save()"
+  >
+    Save
+  </styled-button>
+  <styled-button [color]="ButtonColor.Secondary" (onClick)="createRandomCat()">
+    <img class="icon" [src]="iconPath + 'shuffle.svg'" />
+  </styled-button>
+</div>

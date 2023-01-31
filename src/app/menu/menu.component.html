@@ -1,0 +1,35 @@
+<div class="menu">
+  <div class="menu-controls">
+    <styled-button
+      class="menu-button"
+      [color]="ButtonColor.Primary"
+      [type]="ButtonType.Icon"
+      (onClick)="handleCreate()"
+    >
+      <img class="menu-button-icon" [src]="iconPath + 'plus.svg'" />
+    </styled-button>
+    <styled-button
+      class="menu-button"
+      [color]="ButtonColor.Secondary"
+      [type]="ButtonType.Icon"
+      [disabled]="!selected"
+      (onClick)="handleMove()"
+    >
+      <img
+        class="menu-button-icon"
+        [class.back]="selected?.position === CatPosition.Box"
+        [src]="iconPath + 'arrow-right.svg'"
+      />
+    </styled-button>
+    <styled-button
+      class="menu-button"
+      [color]="ButtonColor.Danger"
+      [type]="ButtonType.Icon"
+      [disabled]="!selected"
+      (onClick)="handleDelete()"
+    >
+      <img class="menu-button-icon" [src]="iconPath + 'trash.svg'" />
+    </styled-button>
+  </div>
+  <menu-error [error]="error" *ngIf="error"></menu-error>
+</div>

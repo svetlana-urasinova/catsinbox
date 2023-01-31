@@ -1,0 +1,11 @@
+<div
+  class="cat-grid"
+  [ngStyle]="{ gridTemplateColumns: 'repeat(' + width + ', var(--cat-size))' }"
+>
+  <cat
+    [cat]="cat"
+    [selected]="cat.id === selected?.id"
+    (click)="handleClick(cat)"
+    *ngFor="let cat of cats"
+  ></cat>
+</div>

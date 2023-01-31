@@ -1,0 +1,12 @@
+<h3 class="secondary-header" *ngIf="title">{{ title }}</h3>
+<div class="modal-content">
+  <ng-content></ng-content>
+</div>
+<div class="modal-controls">
+  <styled-button [color]="ButtonColor.Grey" (onClick)="cancel()">
+    Cancel
+  </styled-button>
+  <styled-button [color]="ButtonColor.Danger" (onClick)="confirm()">
+    Confirm
+  </styled-button>
+</div>

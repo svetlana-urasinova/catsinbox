@@ -1,0 +1,39 @@
+.footer {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  padding: 8px;
+
+  &-credits {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    &-link {
+      color: var(--grey-95);
+
+      &:hover,
+      &:active {
+        color: var(--white);
+      }
+    }
+  }
+
+  &-signature {
+    font-family: "Comforter Brush", cursive;
+    font-size: 24px;
+    margin-left: auto;
+
+    &-link {
+      border-radius: 6px;
+      color: var(--text-color);
+      display: block;
+      padding: 4px 12px;
+      text-decoration: none;
+
+      &:hover {
+        background: var(--grey-95);
+      }
+    }
+  }
+}
