@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-portfolio": "ng build --base-href='/portfolio/catsinbox/'",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
