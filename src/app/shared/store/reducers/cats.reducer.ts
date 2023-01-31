@@ -16,6 +16,7 @@ import {
   CAT_MOVED,
   CAT_MOVE_FAILED,
   CAT_IDLE,
+  CAT_SAVE,
 } from '../actions';
 import { CatsState } from '../state';
 
@@ -61,6 +62,7 @@ export function catsReducer(
     case CAT_MOVE:
     case CAT_DELETE:
     case CAT_IDLE:
+    case CAT_SAVE:
     default:
       return { ...state };
   }

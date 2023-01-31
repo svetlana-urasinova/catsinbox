@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, withLatestFrom } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { MAX_CATS_IN_BOX, MAX_CATS } from '../../constants';
 import { CatsService } from '../../services';
 import { Cat, CatPosition } from '../../types';
@@ -23,6 +23,11 @@ import {
   CAT_DELETE,
   CAT_MOVE,
   CatIdle,
+  CAT_SAVE,
+  CatSave,
+  CAT_CREATED,
+  CAT_MOVED,
+  CAT_DELETED,
 } from '../actions';
 import { getCats, getCatsByPosition } from '../selectors';
 import { AppState } from '../state';
@@ -80,6 +85,19 @@ export class CatsEffects {
     )
   );
 
+  public catCreated$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CAT_CREATED),
+        tap(() => {
+          this.store.dispatch(new CatSave());
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   public moveCat$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CAT_MOVE),
@@ -103,6 +121,19 @@ export class CatsEffects {
     )
   );
 
+  public catMoved$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CAT_MOVED),
+        tap(() => {
+          this.store.dispatch(new CatSave());
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   public deleteCat$ = createEffect(() =>
     this.actions$.pipe(
       ofType(CAT_DELETE),
@@ -113,5 +144,30 @@ export class CatsEffects {
         );
       })
     )
+  );
+
+  public catDeleted$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CAT_DELETED),
+        tap(() => {
+          this.store.dispatch(new CatSave());
+        })
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
+  public saveCat$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CAT_SAVE),
+        withLatestFrom(this.store.select(getCats)),
+        tap(([_, cats]: [CatSave, Cat[]]) => {
+          this.catsService.saveToLocalStorage(cats);
+        })
+      ),
+    { dispatch: false }
   );
 }

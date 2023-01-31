@@ -20,6 +20,7 @@ export const CAT_DELETED = '[CATS] Deleted';
 export const CAT_DELETE_FAILED = '[CATS] Delete failed';
 export const CAT_SELECT = '[CATS] Select';
 export const CAT_IDLE = '[CATS] Idle';
+export const CAT_SAVE = '[CATS] Save';
 export const CATS_CLEAR_ERROR = '[CATS] Clear error';
 
 export class CatsFetch implements Action {
@@ -102,6 +103,10 @@ export class CatIdle implements Action {
   readonly type = CAT_IDLE;
 }
 
+export class CatSave implements Action {
+  readonly type = CAT_SAVE;
+}
+
 export class CatsClearError implements Action {
   readonly type = CATS_CLEAR_ERROR;
 }
@@ -121,4 +126,5 @@ export type CatsActions =
   | CatDeleteFailed
   | CatSelect
   | CatIdle
+  | CatSave
   | CatsClearError;

@@ -12,7 +12,7 @@ import {
   providedIn: 'root',
 })
 export class CatsService {
-  private cats: Cat[] = [
+  private initialCats: Cat[] = [
     new Cat({ name: 'Harry', breed: CatBreed.ScottishFold }),
     new Cat({ name: 'Hermione', breed: CatBreed.Siamese }),
     new Cat({ name: 'Ron', breed: CatBreed.Persian }),
@@ -27,7 +27,7 @@ export class CatsService {
       );
     }
 
-    return of(this.cats);
+    return of(this.getFromLocalStorage());
   }
 
   public createCat(payload: CatCreatePayload): Observable<Cat> {
@@ -65,6 +65,20 @@ export class CatsService {
     }
 
     return of(payload.id);
+  }
+
+  public getFromLocalStorage(): Cat[] {
+    const cats = localStorage.getItem('cats');
+
+    if (!cats) {
+      return this.initialCats;
+    }
+
+    return <Cat[]>JSON.parse(cats);
+  }
+
+  public saveToLocalStorage(cats: Cat[]): void {
+    localStorage.setItem('cats', JSON.stringify(cats));
   }
 
   private getRandomNumber(max: number) {
