@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, take, takeUntil } from 'rxjs';
 import { ButtonColor, ButtonComponent, ButtonType } from '../shared/components';
+import { ERROR_CLEAR_TIMEOUT } from '../shared/constants';
 import { ModalService } from '../shared/services';
 import {
   AppState,
@@ -63,7 +64,7 @@ export class MenuComponent implements OnInit, OnDestroy {
         if (error) {
           setTimeout(() => {
             this.store.dispatch(new CatsClearError());
-          }, 3000);
+          }, ERROR_CLEAR_TIMEOUT);
         }
       });
   }
