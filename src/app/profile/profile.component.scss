@@ -1,15 +1,34 @@
 .profile {
   align-items: center;
   background-color: var(--white);
-  border: 2px solid var(--accent);
+  border: 2px solid var(--secondary);
   border-radius: 10px;
   display: grid;
   gap: 20px;
   grid-template-columns: var(--cat-size) auto;
+  justify-content: center;
   padding: 20px;
   width: 100%;
 
   @media only screen and (max-width: 600px) {
     padding: 10px 20px;
+  }
+
+  &-icon {
+    position: relative;
+  }
+
+  &-content {
+    &-line {
+      margin: 8px 0;
+
+      @media only screen and (max-width: 600px) {
+        margin: 5px 0;
+      }
+    }
+  }
+
+  &-feed {
+    grid-column: 1/3;
   }
 }

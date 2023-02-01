@@ -86,9 +86,20 @@
     }
   }
 
+  &.clear:not(:disabled) {
+    background-color: transparent;
+    box-shadow: none;
+    --text-color: var(--text);
+
+    &:hover,
+    &:focus {
+      background-color: var(--grey-90);
+    }
+  }
+
   &.icon {
     border-radius: 4px;
     height: fit-content;
-    padding: 4px 8px;
+    padding: 8px;
   }
 }

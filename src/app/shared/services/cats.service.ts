@@ -1,16 +1,14 @@
+import { v5 as uuid } from 'uuid';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import {
-  Cat,
-  CatCreatePayload,
-  CatDeletePayload,
-  CatMovePayload,
-} from '../types';
+import { Cat, CatDeletePayload } from '../types';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CatsService {
+  // this class emulates http requests
+
   public fetchCats(): Observable<Cat[] | null> {
     const showError = this.getRandomNumber(10) === 1;
 
@@ -23,29 +21,22 @@ export class CatsService {
     return of(this.getFromLocalStorage());
   }
 
-  public createCat(payload: CatCreatePayload): Observable<Cat> {
-    const cat = new Cat(payload);
+  public createCat(cat: Cat): Observable<{ id: string }> {
+    const id = this.generateId(cat.name);
 
-    return of(cat);
+    return of({ id });
   }
 
-  public updateCat(payload: CatMovePayload): Observable<Cat> {
-    const { cat, force } = payload;
+  public moveCat(cat: Cat): Observable<Cat> {
+    const showError = this.getRandomNumber(5) === 1;
 
-    if (!force) {
-      const showError = this.getRandomNumber(5) === 1;
-
-      if (showError) {
-        return throwError(
-          () => new Error("Cat doesn't want to move. Please try again.")
-        );
-      }
+    if (showError) {
+      return throwError(
+        () => new Error("Cat doesn't want to move. Please try again.")
+      );
     }
 
-    const updatedCat = new Cat(cat);
-    updatedCat.move();
-
-    return of(updatedCat);
+    return of(cat);
   }
 
   public deleteCat(payload: CatDeletePayload): Observable<string> {
@@ -67,11 +58,17 @@ export class CatsService {
       return null;
     }
 
-    return <Cat[]>JSON.parse(cats);
+    return <Cat[]>(
+      JSON.parse(cats).map((catPayload: Cat) => new Cat(catPayload))
+    );
   }
 
   public saveToLocalStorage(cats: Cat[]): void {
     localStorage.setItem('cats', JSON.stringify(cats));
+  }
+
+  private generateId(name: string): string {
+    return uuid(name + Date.now().toString(), uuid.DNS);
   }
 
   private getRandomNumber(max: number): number {

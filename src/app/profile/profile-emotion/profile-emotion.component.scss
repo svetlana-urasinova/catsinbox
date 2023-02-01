@@ -1,0 +1,33 @@
+.profile-emotion {
+  height: var(--cat-size);
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-75%, -40%);
+  width: var(--cat-size);
+
+  &-bubble {
+    color: white;
+    transform: scale(-1, 1);
+
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  &-icon {
+    height: 30px;
+    width: 30px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-45%, -50%);
+
+    @media only screen and (max-width: 600px) {
+      background-color: white;
+      border: 1px solid var(--black);
+      border-radius: 6px;
+      padding: 5px;
+    }
+  }
+}

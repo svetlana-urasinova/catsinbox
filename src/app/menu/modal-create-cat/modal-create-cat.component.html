@@ -1,7 +1,7 @@
 <div class="modal-content">
   <p class="create-cat-label">Name your cat:</p>
   <div class="form" [formGroup]="form">
-    <cat class="create-cat-img" [cat]="cat"></cat>
+    <cat-icon class="create-cat-img" [cat]="cat"></cat-icon>
     <styled-input formControlName="name" placeholder="Fluffy"></styled-input>
   </div>
 </div>
@@ -16,7 +16,11 @@
   >
     Save
   </styled-button>
-  <styled-button [color]="ButtonColor.Secondary" (onClick)="createRandomCat()">
+  <styled-button
+    title="Find another cat"
+    [color]="ButtonColor.Secondary"
+    (onClick)="createRandomCat()"
+  >
     <img class="icon" [src]="iconPath + 'shuffle.svg'" />
   </styled-button>
 </div>

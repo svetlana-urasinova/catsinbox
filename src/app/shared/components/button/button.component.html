@@ -1,6 +1,7 @@
 <button
   class="styled-button"
   [class.icon]="type === ButtonType.Icon"
+  [title]="title"
   [ngClass]="color"
   [disabled]="disabled || null"
   (click)="handleClick($event)"

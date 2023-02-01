@@ -27,6 +27,8 @@ export class ErrorComponent implements OnInit, OnDestroy {
         this.error = error;
 
         if (error) {
+          console.error(error);
+
           setTimeout(() => {
             this.store.dispatch(new CatsClearError());
           }, ERROR_CLEAR_TIMEOUT);

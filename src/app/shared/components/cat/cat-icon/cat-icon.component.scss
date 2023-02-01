@@ -1,0 +1,14 @@
+.cat-icon {
+  background-color: white;
+  border: 2px solid var(--grey);
+  display: block;
+  height: var(--cat-size);
+  padding: 2px;
+  width: var(--cat-size);
+
+  &-img {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+  }
+}

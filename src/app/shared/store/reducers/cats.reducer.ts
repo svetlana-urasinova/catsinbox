@@ -8,24 +8,25 @@ import {
   CAT_CREATE,
   CAT_CREATED,
   CAT_CREATE_FAILED,
+  CAT_UPDATED,
+  CAT_UPDATE_FAILED,
   CAT_DELETE,
   CAT_DELETED,
   CAT_DELETE_FAILED,
   CAT_SELECT,
-  CAT_MOVE,
-  CAT_MOVED,
-  CAT_MOVE_FAILED,
-  CAT_IDLE,
   CAT_SAVE,
   CATS_RESET,
+  CAT_MOVE,
+  CAT_UPDATE,
+  CAT_FEED,
 } from '../actions';
 import { CatsState } from '../state';
 
 const initialState: CatsState = {
   cats: [
-    new Cat({ name: 'Harry', breed: CatBreed.ScottishFold }),
-    new Cat({ name: 'Hermione', breed: CatBreed.Siamese }),
-    new Cat({ name: 'Ron', breed: CatBreed.Persian }),
+    new Cat({ name: 'Harry', breed: CatBreed.ScottishFold, id: '1' }),
+    new Cat({ name: 'Hermione', breed: CatBreed.Siamese, id: '2' }),
+    new Cat({ name: 'Ron', breed: CatBreed.Persian, id: '3' }),
   ],
   selected_id: null,
   error: null,
@@ -40,7 +41,7 @@ export function catsReducer(
       return { ...state, cats: action.cats ?? initialState.cats };
     case CAT_CREATED:
       return { ...state, cats: [...state.cats, action.cat] };
-    case CAT_MOVED:
+    case CAT_UPDATED:
       return {
         ...state,
         cats: [
@@ -58,7 +59,7 @@ export function catsReducer(
     case CATS_FETCH_FAILED:
       return { ...state, cats: [], error: action.error };
     case CAT_CREATE_FAILED:
-    case CAT_MOVE_FAILED:
+    case CAT_UPDATE_FAILED:
     case CAT_DELETE_FAILED:
       return { ...state, error: action.error };
     case CATS_CLEAR_ERROR:
@@ -68,8 +69,9 @@ export function catsReducer(
     case CATS_FETCH:
     case CAT_CREATE:
     case CAT_MOVE:
+    case CAT_FEED:
+    case CAT_UPDATE:
     case CAT_DELETE:
-    case CAT_IDLE:
     case CAT_SAVE:
     default:
       return { ...state };

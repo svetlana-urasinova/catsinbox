@@ -1,0 +1,26 @@
+<div class="profile-feed">
+  <styled-button
+    [color]="ButtonColor.Clear"
+    [type]="ButtonType.Icon"
+    title="Pet food"
+    (onClick)="feed()"
+  >
+    <img class="profile-feed-icon" [src]="imgPath + 'pet-food.png'" />
+  </styled-button>
+  <styled-button
+    [color]="ButtonColor.Clear"
+    [type]="ButtonType.Icon"
+    title="Milk"
+    (onClick)="feed()"
+  >
+    <img class="profile-feed-icon" [src]="imgPath + 'milk.png'" />
+  </styled-button>
+  <styled-button
+    [color]="ButtonColor.Clear"
+    [type]="ButtonType.Icon"
+    title="Fish"
+    (onClick)="feed()"
+  >
+    <img class="profile-feed-icon" [src]="imgPath + 'fish.png'" />
+  </styled-button>
+</div>

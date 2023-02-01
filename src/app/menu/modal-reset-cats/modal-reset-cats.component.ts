@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { CatComponent } from '../../shared/components';
-import { ModalConfirmComponent } from '../../shared/components/modal/modal-confirm/modal-conrifm.component';
+import {
+  CatIconComponent,
+  ModalConfirmComponent,
+} from '../../shared/components';
 import { Cat } from '../../shared/types';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, ModalConfirmComponent, CatComponent],
+  imports: [CommonModule, ModalConfirmComponent, CatIconComponent],
   templateUrl: './modal-reset-cats.component.html',
   styleUrls: ['./modal-reset-cats.component.scss'],
 })

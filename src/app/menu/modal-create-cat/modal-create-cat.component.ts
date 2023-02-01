@@ -9,18 +9,18 @@ import {
 import {
   ButtonColor,
   ButtonComponent,
-  CatComponent,
   InputComponent,
+  CatIconComponent,
 } from '../../shared/components';
 import { ModalService } from '../../shared/services';
-import { Cat, CatCreatePayload } from '../../shared/types';
+import { Cat } from '../../shared/types';
 
 @Component({
   standalone: true,
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    CatComponent,
+    CatIconComponent,
     InputComponent,
     ButtonComponent,
   ],
@@ -48,9 +48,9 @@ export class ModalCreateCatComponent implements OnInit {
   }
 
   public save(): void {
-    const payload: CatCreatePayload = { ...this.cat, ...this.form.value };
+    this.cat.name = this.form.value.name;
 
-    this.modalService.close({ payload });
+    this.modalService.close({ cat: this.cat });
   }
 
   public createRandomCat(): void {

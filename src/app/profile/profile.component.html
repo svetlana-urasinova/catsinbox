@@ -1,8 +1,15 @@
 <div class="profile" *ngIf="selected">
-  <cat [cat]="selected"></cat>
-  <div class="profile-content">
-    <p>Name: {{ selected.name }}</p>
-    <p>Breed: {{ breedName }}</p>
-    <p>Moved: {{ selected.moved_times }} times</p>
+  <div class="profile-icon">
+    <cat-icon [cat]="selected"></cat-icon>
+    <app-profile-emotion [mood]="selected.mood"></app-profile-emotion>
   </div>
+  <div class="profile-content">
+    <p class="profile-content-line">Name: {{ selected.name }}</p>
+    <p class="profile-content-line">Breed: {{ breedName }}</p>
+    <p class="profile-content-line">Moved: {{ selected.movedTimes }} times</p>
+  </div>
+  <app-profile-feed
+    class="profile-feed"
+    [selected]="selected"
+  ></app-profile-feed>
 </div>

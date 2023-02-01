@@ -1,0 +1,11 @@
+.profile-feed {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+
+  &-icon {
+    height: 36px;
+    vertical-align: middle;
+    width: 36px;
+  }
+}

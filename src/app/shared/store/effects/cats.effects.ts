@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { MAX_CATS_IN_BOX, MAX_CATS } from '../../constants';
+import { MAX_CATS_IN_BOX, MAX_CATS, HUNGER_LOW_LVL } from '../../constants';
 import { CatsService } from '../../services';
 import { Cat, CatPosition } from '../../types';
 import {
@@ -17,20 +17,22 @@ import {
   CatsLoaded,
   CATS_FETCH,
   CatMove,
-  CatMoved,
-  CatMoveFailed,
   CAT_CREATE,
   CAT_DELETE,
   CAT_MOVE,
-  CatIdle,
   CAT_SAVE,
   CatSave,
   CAT_CREATED,
-  CAT_MOVED,
   CAT_DELETED,
   CATS_RESET,
+  CAT_UPDATED,
+  CatUpdateFailed,
+  CatUpdated,
+  CAT_UPDATE,
+  CatUpdate,
+  CAT_FEED,
 } from '../actions';
-import { getCats, getCatsByPosition } from '../selectors';
+import { getCats, getCatsByPosition, getSelectedCat } from '../selectors';
 import { AppState } from '../state';
 
 @Injectable()
@@ -62,8 +64,12 @@ export class CatsEffects {
       ofType(CAT_CREATE),
       withLatestFrom(this.store.select(getCats)),
       switchMap(([action, cats]: [CatCreate, Cat[]]) => {
-        if (cats.find((cat: Cat) => cat.name === action.payload.name)) {
+        if (cats.find((cat: Cat) => cat.name === action.cat.name)) {
           return of(new CatCreateFailed('Cat with this name already exists.'));
+        }
+
+        if (!action.cat.name || !action.cat.name.length) {
+          return of(new CatCreateFailed('Every cat must have a name.'));
         }
 
         if (cats.length === MAX_CATS) {
@@ -74,11 +80,15 @@ export class CatsEffects {
           );
         }
 
-        return this.catsService.createCat(action.payload).pipe(
-          map((response: Cat) => {
-            this.store.dispatch(new CatSelect(response.id));
+        return this.catsService.createCat(action.cat).pipe(
+          map((response: { id: string }) => {
+            const { id } = response;
 
-            return new CatCreated(response);
+            const updatedCat = new Cat({ ...action.cat, id });
+
+            this.store.dispatch(new CatSelect(id));
+
+            return new CatCreated(updatedCat);
           }),
           catchError((error: any) => of(new CatCreateFailed(error.message)))
         );
@@ -104,28 +114,53 @@ export class CatsEffects {
       ofType(CAT_MOVE),
       withLatestFrom(this.store.select(getCatsByPosition(CatPosition.Box))),
       switchMap(([action, catsInBox]: [CatMove, Cat[]]) => {
-        const { cat, force } = action.payload;
         if (
-          cat.position !== CatPosition.Box &&
+          action.cat.position !== CatPosition.Box &&
           catsInBox.length === MAX_CATS_IN_BOX
         ) {
-          return force
-            ? of(new CatIdle())
-            : of(new CatMoveFailed('The box is full!'));
+          of(new CatUpdateFailed('The box is full!'));
         }
 
-        return this.catsService.updateCat(action.payload).pipe(
-          map((response: Cat) => new CatMoved(response)),
-          catchError((error: any) => of(new CatMoveFailed(error.message)))
+        return this.catsService.moveCat(action.cat).pipe(
+          map((response: Cat) => new CatUpdated(response)),
+          catchError((error: any) => of(new CatUpdateFailed(error.message)))
         );
       })
     )
   );
 
-  public catMoved$ = createEffect(
+  public feedCat$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CAT_FEED),
+      withLatestFrom(this.store.select(getSelectedCat)),
+      switchMap(([_, cat]: [CatMove, Cat | null]) => {
+        if (!cat) {
+          return of(new CatUpdateFailed('No cat is selected'));
+        }
+
+        if (cat.hunger < HUNGER_LOW_LVL) {
+          return of(new CatUpdateFailed('This cat is not hungry.'));
+        }
+
+        const updatedCat = new Cat({ ...cat });
+        updatedCat.feed();
+
+        return of(new CatUpdate(updatedCat));
+      })
+    )
+  );
+
+  public updateCat$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(CAT_UPDATE),
+      switchMap((action: CatUpdate) => of(new CatUpdated(action.cat)))
+    )
+  );
+
+  public catUpdated$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(CAT_MOVED),
+        ofType(CAT_UPDATED),
         tap(() => {
           this.store.dispatch(new CatSave());
         })

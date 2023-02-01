@@ -10,12 +10,12 @@ import {
   CatDelete,
   CatsClearError,
   CatSelect,
-  CatMove,
   getSelectedCat,
   getCats,
   CatsReset,
+  CatMove,
 } from '../shared/store';
-import { Cat, CatCreatePayload, CatPosition } from '../shared/types';
+import { Cat, CatPosition } from '../shared/types';
 import { ErrorComponent } from '../error/error.component';
 import { ModalCreateCatComponent } from './modal-create-cat/modal-create-cat.component';
 import { ModalDeleteCatComponent } from './modal-delete-cat/modal-delete-cat.component';
@@ -76,9 +76,9 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     this.modalService.result$
       .pipe(take(1), takeUntil(this.component$))
-      .subscribe((result?: { payload: CatCreatePayload }) => {
-        if (result?.payload) {
-          this.store.dispatch(new CatCreate(result.payload));
+      .subscribe((result?: { cat: Cat }) => {
+        if (result?.cat) {
+          this.store.dispatch(new CatCreate(result.cat));
         }
       });
   }
@@ -88,19 +88,23 @@ export class MenuComponent implements OnInit, OnDestroy {
       return;
     }
 
+    const updatedCat = new Cat({ ...this.selected });
+    updatedCat.move();
+
     this.clearError();
 
-    this.store.dispatch(new CatMove({ cat: this.selected }));
+    this.store.dispatch(new CatMove(updatedCat));
   }
 
   public handleDelete(): void {
-    if (!this.selected) {
+    if (!this.selected?.id) {
       return;
     }
 
     this.clearError();
 
     const cat = this.selected;
+    const id = this.selected.id;
 
     this.modalService.open(ModalDeleteCatComponent, { cat });
 
@@ -108,7 +112,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       .pipe(take(1), takeUntil(this.component$))
       .subscribe((result?: { confirm: boolean }) => {
         if (result?.confirm) {
-          this.store.dispatch(new CatDelete({ id: cat.id }));
+          this.store.dispatch(new CatDelete({ id }));
         }
       });
   }

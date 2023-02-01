@@ -10,6 +10,7 @@ import { ButtonColor, ButtonType } from './types';
   styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
+  @Input() public title = '';
   @Input() public color: ButtonColor = ButtonColor.Primary;
   @Input() public disabled = false;
   @Input() public type: ButtonType = ButtonType.Button;

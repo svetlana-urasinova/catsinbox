@@ -1,3 +1,8 @@
-<div class="cat" [class.selected]="selected" *ngIf="cat">
-  <img class="cat-img" [src]="imgPath + cat.breed + '.png'" />
+<div class="cat" [class.selected]="selected">
+  <cat-icon [cat]="cat"></cat-icon>
+  <div
+    class="cat-mood"
+    [class.hunger]="cat.mood === CatMood.Hunger"
+    [class.starving]="cat.mood === CatMood.Starving"
+  ></div>
 </div>

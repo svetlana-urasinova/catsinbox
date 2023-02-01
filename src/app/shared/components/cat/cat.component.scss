@@ -1,21 +1,28 @@
 .cat {
-  background-color: white;
-  border: 2px solid var(--grey);
   box-shadow: var(--box-shadow);
   cursor: pointer;
-  display: block;
-  height: var(--cat-size);
   outline: var(--white) solid 3px;
-  padding: 2px;
-  width: var(--cat-size);
+  position: relative;
 
   &.selected {
-    outline-color: var(--accent);
+    outline-color: var(--secondary);
   }
 
-  &-img {
+  &-mood {
+    background-color: transparent;
     height: 100%;
-    object-fit: contain;
+    left: 0;
+    position: absolute;
+    top: 0;
     width: 100%;
+    z-index: 1000;
+
+    &.hunger {
+      background-color: rgba(200, 0, 0, 0.2);
+    }
+
+    &.starving {
+      background-color: rgba(200, 0, 0, 0.4);
+    }
   }
 }

@@ -1,6 +1,6 @@
 $primary: #390099;
-$secondary: #9e0059;
-$accent: #2e86ab;
+$secondary: #2e86ab;
+$accent: #9e0059;
 $danger: #ef5350;
 $grey: #333333;
 $dark: #001040;
@@ -27,12 +27,13 @@ $white: #ffffff;
   --grey-60: #{mix($white, $grey, 60%)};
   --grey-70: #{mix($white, $grey, 70%)};
   --grey-80: #{mix($white, $grey, 80%)};
+  --grey-90: #{mix($white, $grey, 90%)};
   --disabled: var(--grey-80);
   --text: #{$dark};
   --text-light: #{mix($white, $dark, 20%)};
 
-  --shadow: rgba(0, 0, 0, 0.3);
-  --box-shadow: 0 2px 5px var(--shadow);
+  --shadow: rgba(0, 0, 0, 0.5);
+  --box-shadow: 0 3px 6px var(--shadow);
   --transition: all 0.2s ease-in-out;
 
   --cat-size: 60px;

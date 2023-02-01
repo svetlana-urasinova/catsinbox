@@ -1,10 +1,5 @@
 import { Action } from '@ngrx/store';
-import {
-  Cat,
-  CatCreatePayload,
-  CatDeletePayload,
-  CatMovePayload,
-} from '../../types';
+import { Cat, CatDeletePayload } from '../../types';
 
 export const CATS_FETCH = '[CATS] Fetch';
 export const CATS_LOADED = '[CATS] Loaded';
@@ -13,13 +8,14 @@ export const CAT_CREATE = '[CATS] Create';
 export const CAT_CREATED = '[CATS] Created';
 export const CAT_CREATE_FAILED = '[CATS] Creation failed';
 export const CAT_MOVE = '[CATS] Move';
-export const CAT_MOVED = '[CATS] Moved';
-export const CAT_MOVE_FAILED = '[CATS] Move failed';
+export const CAT_FEED = '[CATS] Feed';
+export const CAT_UPDATE = '[CATS] Update';
+export const CAT_UPDATED = '[CATS] Updated';
+export const CAT_UPDATE_FAILED = '[CATS] Update failed';
 export const CAT_DELETE = '[CATS] Delete';
 export const CAT_DELETED = '[CATS] Deleted';
 export const CAT_DELETE_FAILED = '[CATS] Delete failed';
 export const CAT_SELECT = '[CATS] Select';
-export const CAT_IDLE = '[CATS] Idle';
 export const CAT_SAVE = '[CATS] Save';
 export const CATS_RESET = '[CATS] Reset';
 export const CATS_CLEAR_ERROR = '[CATS] Clear error';
@@ -43,7 +39,7 @@ export class CatsFetchFailed implements Action {
 export class CatCreate implements Action {
   readonly type = CAT_CREATE;
 
-  constructor(public payload: CatCreatePayload) {}
+  constructor(public cat: Cat) {}
 }
 
 export class CatCreated implements Action {
@@ -61,17 +57,29 @@ export class CatCreateFailed implements Action {
 export class CatMove implements Action {
   readonly type = CAT_MOVE;
 
-  constructor(public payload: CatMovePayload) {}
+  constructor(public cat: Cat) {}
 }
 
-export class CatMoved implements Action {
-  readonly type = CAT_MOVED;
+export class CatFeed implements Action {
+  readonly type = CAT_FEED;
 
   constructor(public cat: Cat) {}
 }
 
-export class CatMoveFailed implements Action {
-  readonly type = CAT_MOVE_FAILED;
+export class CatUpdate implements Action {
+  readonly type = CAT_UPDATE;
+
+  constructor(public cat: Cat) {}
+}
+
+export class CatUpdated implements Action {
+  readonly type = CAT_UPDATED;
+
+  constructor(public cat: Cat) {}
+}
+
+export class CatUpdateFailed implements Action {
+  readonly type = CAT_UPDATE_FAILED;
 
   constructor(public error: string) {}
 }
@@ -100,10 +108,6 @@ export class CatSelect implements Action {
   constructor(public payload: string | null) {}
 }
 
-export class CatIdle implements Action {
-  readonly type = CAT_IDLE;
-}
-
 export class CatSave implements Action {
   readonly type = CAT_SAVE;
 }
@@ -124,13 +128,14 @@ export type CatsActions =
   | CatCreated
   | CatCreateFailed
   | CatMove
-  | CatMoved
-  | CatMoveFailed
+  | CatFeed
+  | CatUpdate
+  | CatUpdated
+  | CatUpdateFailed
   | CatDelete
   | CatDeleted
   | CatDeleteFailed
   | CatSelect
-  | CatIdle
   | CatSave
   | CatsReset
   | CatsClearError;

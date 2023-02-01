@@ -2,14 +2,22 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subject, takeUntil } from 'rxjs';
-import { CatComponent } from '../shared/components';
+import { ButtonComponent, CatIconComponent } from '../shared/components';
 import { AppState, getSelectedCat } from '../shared/store';
 import { Cat, CatBreedMap } from '../shared/types';
+import { ProfileEmotionComponent } from './profile-emotion/profile-emotion.component';
+import { ProfileFeedComponent } from './profile-feed/profile-feed.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, CatComponent],
+  imports: [
+    CommonModule,
+    ProfileEmotionComponent,
+    ProfileFeedComponent,
+    ButtonComponent,
+    CatIconComponent,
+  ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
