@@ -20,8 +20,18 @@
       transition: var(--transition);
       width: 28px;
 
-      &.back {
-        transform: scale(-1, 1);
+      &.move {
+        @media only screen and (max-width: 600px) {
+          transform: rotate(90deg);
+        }
+
+        &.back {
+          transform: scale(-1, 1);
+
+          @media only screen and (max-width: 600px) {
+            transform: rotate(90deg) scale(-1, 1);
+          }
+        }
       }
     }
   }
