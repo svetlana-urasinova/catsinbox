@@ -1,7 +1,7 @@
 .profile {
   align-items: center;
   background-color: var(--white);
-  border: 1px solid var(--accent);
+  border: 2px solid var(--accent);
   border-radius: 10px;
   display: grid;
   gap: 20px;
@@ -10,6 +10,6 @@
   width: 100%;
 
   @media only screen and (max-width: 600px) {
-    padding: 10px 20px
+    padding: 10px 20px;
   }
 }

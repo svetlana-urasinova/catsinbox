@@ -1,0 +1,11 @@
+<styled-modal-confirm>
+  <div class="modal-content">
+    <div class="reset-cats">
+      <cat [cat]="cat" *ngFor="let cat of data.cats"></cat>
+    </div>
+    <p class="reset-cats-text">
+      Do you really want to lose all your progress?
+      <span *ngFor="let cat of data.cats">😿</span>
+    </p>
+  </div>
+</styled-modal-confirm>

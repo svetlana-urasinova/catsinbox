@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import {
   Cat,
-  CatBreed,
   CatCreatePayload,
   CatDeletePayload,
   CatMovePayload,
@@ -12,13 +11,7 @@ import {
   providedIn: 'root',
 })
 export class CatsService {
-  private initialCats: Cat[] = [
-    new Cat({ name: 'Harry', breed: CatBreed.ScottishFold }),
-    new Cat({ name: 'Hermione', breed: CatBreed.Siamese }),
-    new Cat({ name: 'Ron', breed: CatBreed.Persian }),
-  ];
-
-  public fetchCats(): Observable<Cat[]> {
+  public fetchCats(): Observable<Cat[] | null> {
     const showError = this.getRandomNumber(10) === 1;
 
     if (showError) {
@@ -67,11 +60,11 @@ export class CatsService {
     return of(payload.id);
   }
 
-  public getFromLocalStorage(): Cat[] {
+  public getFromLocalStorage(): Cat[] | null {
     const cats = localStorage.getItem('cats');
 
     if (!cats) {
-      return this.initialCats;
+      return null;
     }
 
     return <Cat[]>JSON.parse(cats);
@@ -81,7 +74,7 @@ export class CatsService {
     localStorage.setItem('cats', JSON.stringify(cats));
   }
 
-  private getRandomNumber(max: number) {
+  private getRandomNumber(max: number): number {
     return Math.floor(Math.random() * max) + 1;
   }
 }

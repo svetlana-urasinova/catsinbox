@@ -1,0 +1,25 @@
+.modal-content {
+  width: 400px;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.reset-cats {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 4px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.reset-cats-text {
+  margin: 0 auto;
+  text-align: center;
+  width: 300px;
+
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+}

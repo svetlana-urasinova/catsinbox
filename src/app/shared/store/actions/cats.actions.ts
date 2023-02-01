@@ -21,6 +21,7 @@ export const CAT_DELETE_FAILED = '[CATS] Delete failed';
 export const CAT_SELECT = '[CATS] Select';
 export const CAT_IDLE = '[CATS] Idle';
 export const CAT_SAVE = '[CATS] Save';
+export const CATS_RESET = '[CATS] Reset';
 export const CATS_CLEAR_ERROR = '[CATS] Clear error';
 
 export class CatsFetch implements Action {
@@ -30,7 +31,7 @@ export class CatsFetch implements Action {
 export class CatsLoaded implements Action {
   readonly type = CATS_LOADED;
 
-  constructor(public cats: Cat[]) {}
+  constructor(public cats: Cat[] | null) {}
 }
 
 export class CatsFetchFailed implements Action {
@@ -107,6 +108,10 @@ export class CatSave implements Action {
   readonly type = CAT_SAVE;
 }
 
+export class CatsReset implements Action {
+  readonly type = CATS_RESET;
+}
+
 export class CatsClearError implements Action {
   readonly type = CATS_CLEAR_ERROR;
 }
@@ -127,4 +132,5 @@ export type CatsActions =
   | CatSelect
   | CatIdle
   | CatSave
+  | CatsReset
   | CatsClearError;

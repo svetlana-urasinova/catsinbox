@@ -5,6 +5,12 @@
   justify-content: center;
   width: 400px;
 
+  @media only screen and (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.delete-cat {
   &-text {
     margin: 0;
     width: 300px;
@@ -14,13 +20,9 @@
     }
   }
 
-  @media only screen and (max-width: 600px) {
-    width: 100%;
+  &-name {
+    font-weight: 700;
+    margin-left: 1px;
+    margin-right: 1px;
   }
-}
-
-.cat-name {
-  font-weight: 700;
-  margin-left: 1px;
-  margin-right: 1px;
 }

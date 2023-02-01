@@ -12,11 +12,14 @@ import {
   CatSelect,
   CatMove,
   getSelectedCat,
+  getCats,
+  CatsReset,
 } from '../shared/store';
 import { Cat, CatCreatePayload, CatPosition } from '../shared/types';
 import { ErrorComponent } from '../error/error.component';
 import { ModalCreateCatComponent } from './modal-create-cat/modal-create-cat.component';
 import { ModalDeleteCatComponent } from './modal-delete-cat/modal-delete-cat.component';
+import { ModalResetCatsComponent } from './modal-reset-cats/modal-reset-cats.component';
 
 @Component({
   selector: 'app-menu',
@@ -27,12 +30,11 @@ import { ModalDeleteCatComponent } from './modal-delete-cat/modal-delete-cat.com
 })
 export class MenuComponent implements OnInit, OnDestroy {
   public selected: Cat | null = null;
+  public cats: Cat[] = [];
 
   public iconPath = 'assets/img/icons/';
 
   public CatPosition = CatPosition;
-
-  public error: string | null;
 
   public ButtonColor = ButtonColor;
   public ButtonType = ButtonType;
@@ -48,7 +50,16 @@ export class MenuComponent implements OnInit, OnDestroy {
     this.store
       .select(getSelectedCat)
       .pipe(takeUntil(this.component$))
-      .subscribe((selected: Cat | null) => (this.selected = selected));
+      .subscribe((selected: Cat | null) => {
+        this.selected = selected;
+      });
+
+    this.store
+      .select(getCats)
+      .pipe(takeUntil(this.component$))
+      .subscribe((cats: Cat[]) => {
+        this.cats = cats;
+      });
   }
 
   public ngOnDestroy(): void {
@@ -98,6 +109,18 @@ export class MenuComponent implements OnInit, OnDestroy {
       .subscribe((result?: { confirm: boolean }) => {
         if (result?.confirm) {
           this.store.dispatch(new CatDelete({ id: cat.id }));
+        }
+      });
+  }
+
+  public handleReset(): void {
+    this.modalService.open(ModalResetCatsComponent, { cats: this.cats });
+
+    this.modalService.result$
+      .pipe(take(1), takeUntil(this.component$))
+      .subscribe((result?: { confirm: boolean }) => {
+        if (result?.confirm) {
+          this.store.dispatch(new CatsReset());
         }
       });
   }

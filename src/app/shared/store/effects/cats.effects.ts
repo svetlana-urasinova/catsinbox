@@ -28,6 +28,7 @@ import {
   CAT_CREATED,
   CAT_MOVED,
   CAT_DELETED,
+  CATS_RESET,
 } from '../actions';
 import { getCats, getCatsByPosition } from '../selectors';
 import { AppState } from '../state';
@@ -45,7 +46,7 @@ export class CatsEffects {
       ofType(CATS_FETCH),
       switchMap(() => {
         return this.catsService.fetchCats().pipe(
-          map((response: Cat[]) => {
+          map((response: Cat[] | null) => {
             return new CatsLoaded(response);
           }),
           catchError((error: any) => {
@@ -167,6 +168,15 @@ export class CatsEffects {
         tap(([_, cats]: [CatSave, Cat[]]) => {
           this.catsService.saveToLocalStorage(cats);
         })
+      ),
+    { dispatch: false }
+  );
+
+  public resetCats$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(CATS_RESET),
+        tap(() => this.store.dispatch(new CatSave()))
       ),
     { dispatch: false }
   );

@@ -10,7 +10,7 @@
     </styled-button>
     <styled-button
       class="menu-button"
-      [color]="ButtonColor.Secondary"
+      [color]="ButtonColor.Accent"
       [type]="ButtonType.Icon"
       [disabled]="!selected"
       (onClick)="handleMove()"
@@ -29,6 +29,14 @@
       (onClick)="handleDelete()"
     >
       <img class="menu-button-icon" [src]="iconPath + 'trash.svg'" />
+    </styled-button>
+    <styled-button
+      class="menu-button"
+      [color]="ButtonColor.Secondary"
+      [type]="ButtonType.Icon"
+      (onClick)="handleReset()"
+    >
+      <img class="menu-button-icon" [src]="iconPath + 'arrow-round.svg'" />
     </styled-button>
   </div>
 </div>
