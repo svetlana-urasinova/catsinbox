@@ -6,19 +6,23 @@ export class Cat {
   public name: string;
   public breed: CatBreed;
   public position: CatPosition;
+  public moved_times: number;
 
   constructor(payload: CatCreatePayload) {
-    const { id, name, breed, position } = payload;
+    const { id, name, breed, position, moved_times } = payload;
 
     this.name = name ?? '';
     this.id = id ?? uuid(this.name + Date.now().toString(), uuid.DNS);
     this.breed = breed ?? this.getRandomBreed();
     this.position = position ?? CatPosition.Bed;
+    this.moved_times = moved_times ?? 0;
   }
 
   public move(): void {
     this.position =
       this.position === CatPosition.Bed ? CatPosition.Box : CatPosition.Bed;
+
+    this.moved_times++;
   }
 
   private getRandomBreed(): CatBreed {
@@ -38,6 +42,7 @@ export interface CatCreatePayload {
   name?: string;
   breed?: CatBreed;
   position?: CatPosition;
+  moved_times?: number;
 }
 
 export interface CatMovePayload {
