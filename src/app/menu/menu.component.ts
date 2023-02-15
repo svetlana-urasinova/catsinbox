@@ -70,7 +70,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   public handleCreate(): void {
     this.clearError();
 
-    this.store.dispatch(new CatSelect(null));
+    this.store.dispatch(CatSelect({ id: null }));
 
     this.modalService.open(ModalCreateCatComponent);
 
@@ -78,7 +78,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       .pipe(take(1), takeUntil(this.component$))
       .subscribe((result?: { cat: Cat }) => {
         if (result?.cat) {
-          this.store.dispatch(new CatCreate(result.cat));
+          this.store.dispatch(CatCreate(result.cat));
         }
       });
   }
@@ -93,7 +93,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
     this.clearError();
 
-    this.store.dispatch(new CatMove(updatedCat));
+    this.store.dispatch(CatMove(updatedCat));
   }
 
   public handleDelete(): void {
@@ -112,7 +112,7 @@ export class MenuComponent implements OnInit, OnDestroy {
       .pipe(take(1), takeUntil(this.component$))
       .subscribe((result?: { confirm: boolean }) => {
         if (result?.confirm) {
-          this.store.dispatch(new CatDelete({ id }));
+          this.store.dispatch(CatDelete({ id }));
         }
       });
   }
@@ -124,12 +124,12 @@ export class MenuComponent implements OnInit, OnDestroy {
       .pipe(take(1), takeUntil(this.component$))
       .subscribe((result?: { confirm: boolean }) => {
         if (result?.confirm) {
-          this.store.dispatch(new CatsReset());
+          this.store.dispatch(CatsReset());
         }
       });
   }
 
   private clearError(): void {
-    this.store.dispatch(new CatsClearError());
+    this.store.dispatch(CatsClearError());
   }
 }

@@ -1,141 +1,67 @@
-import { Action } from '@ngrx/store';
-import { Cat, CatDeletePayload } from '../../types';
+import { createAction, props } from '@ngrx/store';
+import {
+  Cat,
+  CatDeletePayload,
+  CatError,
+  CatSelectPayload,
+  CatsLoadedPayload,
+} from '../../types';
 
-export const CATS_FETCH = '[CATS] Fetch';
-export const CATS_LOADED = '[CATS] Loaded';
-export const CATS_FETCH_FAILED = '[CATS] Fetch failed';
-export const CAT_CREATE = '[CATS] Create';
-export const CAT_CREATED = '[CATS] Created';
-export const CAT_CREATE_FAILED = '[CATS] Creation failed';
-export const CAT_MOVE = '[CATS] Move';
-export const CAT_FEED = '[CATS] Feed';
-export const CAT_UPDATE = '[CATS] Update';
-export const CAT_UPDATED = '[CATS] Updated';
-export const CAT_UPDATE_FAILED = '[CATS] Update failed';
-export const CAT_DELETE = '[CATS] Delete';
-export const CAT_DELETED = '[CATS] Deleted';
-export const CAT_DELETE_FAILED = '[CATS] Delete failed';
-export const CAT_SELECT = '[CATS] Select';
-export const CAT_SAVE = '[CATS] Save';
-export const CATS_RESET = '[CATS] Reset';
-export const CATS_CLEAR_ERROR = '[CATS] Clear error';
+export const CatsFetch = createAction('[CATS] Fetch');
 
-export class CatsFetch implements Action {
-  readonly type = CATS_FETCH;
-}
+export const CatsLoaded = createAction(
+  '[CATS] Loaded',
+  props<CatsLoadedPayload>()
+);
 
-export class CatsLoaded implements Action {
-  readonly type = CATS_LOADED;
+export const CatsFetchFailed = createAction(
+  '[CATS] Fetch failed',
+  props<CatError>()
+);
 
-  constructor(public cats: Cat[] | null) {}
-}
+export const CatCreate = createAction('[CATS] Create', props<Cat>());
 
-export class CatsFetchFailed implements Action {
-  readonly type = CATS_FETCH_FAILED;
+export const CatCreated = createAction('[CATS] Created', props<Cat>());
 
-  constructor(public error: string) {}
-}
+export const CatCreateFailed = createAction(
+  '[CATS] Creation failed',
+  props<CatError>()
+);
+export const CatMove = createAction('[CATS] Move', props<Cat>());
 
-export class CatCreate implements Action {
-  readonly type = CAT_CREATE;
+export const CatFeed = createAction('[CATS] Feed');
 
-  constructor(public cat: Cat) {}
-}
+export const CatUpdate = createAction('[CATS] Update', props<Cat>());
 
-export class CatCreated implements Action {
-  readonly type = CAT_CREATED;
+export const CatUpdated = createAction('[CATS] Updated', props<Cat>());
 
-  constructor(public cat: Cat) {}
-}
+export const CatUpdateFailed = createAction(
+  '[CATS] Update failed',
+  props<CatError>()
+);
 
-export class CatCreateFailed implements Action {
-  readonly type = CAT_CREATE_FAILED;
+export const CatDelete = createAction(
+  '[CATS] Delete',
+  props<CatDeletePayload>()
+);
 
-  constructor(public error: string) {}
-}
+export const CatDeleted = createAction(
+  '[CATS] Deleted',
+  props<CatDeletePayload>()
+);
 
-export class CatMove implements Action {
-  readonly type = CAT_MOVE;
+export const CatDeleteFailed = createAction(
+  '[CATS] Delete failed',
+  props<CatError>()
+);
 
-  constructor(public cat: Cat) {}
-}
+export const CatSelect = createAction(
+  '[CATS] Select',
+  props<CatSelectPayload>()
+);
 
-export class CatFeed implements Action {
-  readonly type = CAT_FEED;
+export const CatsSave = createAction('[CATS] Save');
 
-  constructor(public cat: Cat) {}
-}
+export const CatsReset = createAction('[CATS] Reset');
 
-export class CatUpdate implements Action {
-  readonly type = CAT_UPDATE;
-
-  constructor(public cat: Cat) {}
-}
-
-export class CatUpdated implements Action {
-  readonly type = CAT_UPDATED;
-
-  constructor(public cat: Cat) {}
-}
-
-export class CatUpdateFailed implements Action {
-  readonly type = CAT_UPDATE_FAILED;
-
-  constructor(public error: string) {}
-}
-
-export class CatDelete implements Action {
-  readonly type = CAT_DELETE;
-
-  constructor(public payload: CatDeletePayload) {}
-}
-
-export class CatDeleted implements Action {
-  readonly type = CAT_DELETED;
-
-  constructor(public id: string) {}
-}
-
-export class CatDeleteFailed implements Action {
-  readonly type = CAT_DELETE_FAILED;
-
-  constructor(public error: string) {}
-}
-
-export class CatSelect implements Action {
-  readonly type = CAT_SELECT;
-
-  constructor(public payload: string | null) {}
-}
-
-export class CatSave implements Action {
-  readonly type = CAT_SAVE;
-}
-
-export class CatsReset implements Action {
-  readonly type = CATS_RESET;
-}
-
-export class CatsClearError implements Action {
-  readonly type = CATS_CLEAR_ERROR;
-}
-
-export type CatsActions =
-  | CatsFetch
-  | CatsLoaded
-  | CatsFetchFailed
-  | CatCreate
-  | CatCreated
-  | CatCreateFailed
-  | CatMove
-  | CatFeed
-  | CatUpdate
-  | CatUpdated
-  | CatUpdateFailed
-  | CatDelete
-  | CatDeleted
-  | CatDeleteFailed
-  | CatSelect
-  | CatSave
-  | CatsReset
-  | CatsClearError;
+export const CatsClearError = createAction('[CATS] Clear error');

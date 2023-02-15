@@ -41,7 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private readonly store: Store<AppState>) {}
 
   public ngOnInit(): void {
-    this.store.dispatch(new CatsFetch());
+    this.store.dispatch(CatsFetch());
 
     this.store
       .select(getCats)
@@ -80,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
       updatedCat = this.starveCat(updatedCat);
       updatedCat.updateCurrentMood();
 
-      this.store.dispatch(new CatUpdate(updatedCat));
+      this.store.dispatch(CatUpdate(updatedCat));
     }
   }
 

@@ -1,28 +1,16 @@
-import { Cat, CatBreed } from '../../types';
+import { createReducer, on } from '@ngrx/store';
 import {
-  CatsActions,
-  CATS_CLEAR_ERROR,
-  CATS_FETCH,
-  CATS_FETCH_FAILED,
-  CATS_LOADED,
-  CAT_CREATE,
-  CAT_CREATED,
-  CAT_CREATE_FAILED,
-  CAT_UPDATED,
-  CAT_UPDATE_FAILED,
-  CAT_DELETE,
-  CAT_DELETED,
-  CAT_DELETE_FAILED,
-  CAT_SELECT,
-  CAT_SAVE,
-  CATS_RESET,
-  CAT_MOVE,
-  CAT_UPDATE,
-  CAT_FEED,
-} from '../actions';
+  Cat,
+  CatBreed,
+  CatDeletePayload,
+  CatError,
+  CatSelectPayload,
+  CatsLoadedPayload,
+} from '../../types';
+import * as catsActions from '../actions';
 import { CatsState } from '../state';
 
-const initialState: CatsState = {
+const initialCatsState: CatsState = {
   cats: [
     new Cat({ name: 'Harry', breed: CatBreed.ScottishFold, id: '1' }),
     new Cat({ name: 'Hermione', breed: CatBreed.Siamese, id: '2' }),
@@ -32,48 +20,69 @@ const initialState: CatsState = {
   error: null,
 };
 
-export function catsReducer(
-  state = initialState,
-  action: CatsActions
-): CatsState {
-  switch (action.type) {
-    case CATS_LOADED:
-      return { ...state, cats: action.cats ?? initialState.cats };
-    case CAT_CREATED:
-      return { ...state, cats: [...state.cats, action.cat] };
-    case CAT_UPDATED:
-      return {
-        ...state,
-        cats: [
-          ...state.cats.filter((cat: Cat) => cat.id !== action.cat.id),
-          action.cat,
-        ],
-      };
-    case CAT_DELETED:
-      return {
-        ...state,
-        cats: [...state.cats.filter((cat: Cat) => cat.id !== action.id)],
-      };
-    case CAT_SELECT:
-      return { ...state, selected_id: action.payload };
-    case CATS_FETCH_FAILED:
-      return { ...state, cats: [], error: action.error };
-    case CAT_CREATE_FAILED:
-    case CAT_UPDATE_FAILED:
-    case CAT_DELETE_FAILED:
-      return { ...state, error: action.error };
-    case CATS_CLEAR_ERROR:
-      return { ...state, error: null };
-    case CATS_RESET:
-      return { ...initialState };
-    case CATS_FETCH:
-    case CAT_CREATE:
-    case CAT_MOVE:
-    case CAT_FEED:
-    case CAT_UPDATE:
-    case CAT_DELETE:
-    case CAT_SAVE:
-    default:
+export const catsReducer = createReducer(
+  initialCatsState,
+
+  on(catsActions.CatsLoaded, (state: CatsState, payload: CatsLoadedPayload) => {
+    return { ...state, cats: payload.cats ?? initialCatsState.cats };
+  }),
+
+  on(catsActions.CatCreated, (state: CatsState, payload: Cat) => {
+    return { ...state, cats: [...state.cats, payload] };
+  }),
+
+  on(catsActions.CatUpdated, (state: CatsState, payload: Cat) => {
+    return {
+      ...state,
+      cats: [
+        ...state.cats.filter((cat: Cat) => cat.id !== payload.id),
+        payload,
+      ],
+    };
+  }),
+
+  on(catsActions.CatDeleted, (state: CatsState, payload: CatDeletePayload) => {
+    return {
+      ...state,
+      cats: [...state.cats.filter((cat: Cat) => cat.id !== payload.id)],
+    };
+  }),
+
+  on(catsActions.CatSelect, (state: CatsState, payload: CatSelectPayload) => {
+    return { ...state, selected_id: payload.id };
+  }),
+
+  on(
+    catsActions.CatsFetch,
+    catsActions.CatCreate,
+    catsActions.CatMove,
+    catsActions.CatFeed,
+    catsActions.CatUpdate,
+    catsActions.CatDelete,
+    catsActions.CatsSave,
+    (state: CatsState) => {
       return { ...state };
-  }
-}
+    }
+  ),
+
+  on(catsActions.CatsFetchFailed, (state: CatsState, payload: CatError) => {
+    return { ...state, cats: [], error: payload.message };
+  }),
+
+  on(
+    catsActions.CatCreateFailed,
+    catsActions.CatUpdateFailed,
+    catsActions.CatDeleteFailed,
+    (state: CatsState, payload: CatError) => {
+      return { ...state, error: payload.message };
+    }
+  ),
+
+  on(catsActions.CatsClearError, (state: CatsState) => {
+    return { ...state, error: null };
+  }),
+
+  on(catsActions.CatsReset, () => {
+    return { ...initialCatsState };
+  })
+);

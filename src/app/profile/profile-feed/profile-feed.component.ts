@@ -27,8 +27,6 @@ export class ProfileFeedComponent {
   constructor(private store: Store<AppState>) {}
 
   public feed(): void {
-    if (this.selected) {
-      this.store.dispatch(new CatFeed(this.selected));
-    }
+    this.store.dispatch(CatFeed());
   }
 }

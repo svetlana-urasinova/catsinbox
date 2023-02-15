@@ -163,8 +163,20 @@ export enum CatPosition {
   Box = 'box',
 }
 
+export interface CatsLoadedPayload {
+  cats: Cat[] | null;
+}
+
 export interface CatDeletePayload {
   id: string;
+}
+
+export interface CatSelectPayload {
+  id: string | null;
+}
+
+export interface CatError {
+  message: string;
 }
 
 export const CatBreedMap = new Map<CatBreed, string>([

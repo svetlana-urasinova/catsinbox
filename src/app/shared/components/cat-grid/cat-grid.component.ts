@@ -21,7 +21,7 @@ export class CatGridComponent {
 
   public handleClick(cat: Cat): void {
     this.selected?.id === cat.id
-      ? this.store.dispatch(new CatSelect(null))
-      : this.store.dispatch(new CatSelect(cat.id));
+      ? this.store.dispatch(CatSelect({ id: null }))
+      : this.store.dispatch(CatSelect({ id: cat.id }));
   }
 }
